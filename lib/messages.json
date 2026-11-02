@@ -3197,12 +3197,6 @@
     "사이트 메뉴",
     "Site navigation"
   ],
-  "由 {name} 製作": [
-    "由 {name} 制作",
-    "制作：{name}",
-    "제작: {name}",
-    "Made by {name}"
-  ],
   "GitHub 原始碼": [
     "GitHub 源代码",
     "GitHub のソースコード",
@@ -3928,5 +3922,23 @@
     "Claude Code・Codex などの Agent に貼る",
     "Claude Code, Codex 같은 Agent에 붙여 넣기",
     "Paste it into Claude Code, Codex or another agent"
+  ],
+  "人蔘 Try Catch 的作品": [
+    "人蔘 Try Catch 的作品",
+    "Ginseng Try Catch のプロジェクト",
+    "Ginseng Try Catch 프로젝트",
+    "A Ginseng Try Catch project"
+  ],
+  "更多小工具": [
+    "更多小工具",
+    "ほかのツール",
+    "다른 도구 보기",
+    "More tools"
+  ],
+  "訂閱電子報": [
+    "订阅电子报",
+    "ニュースレター（英語）",
+    "뉴스레터 구독 (영어)",
+    "Newsletter"
   ]
 }

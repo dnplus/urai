@@ -9,7 +9,7 @@ import {rarityLabel} from "../lib/rarity.ts";
 import type {PublicCard} from "../lib/public-card-service.ts";
 
 export function PublicCardView({id, via, data}: {id: string; via: string; data: PublicCard | null}) {
-  const {t, ready} = useLocale();
+  const {t, ready, locale} = useLocale();
   const card = data?.card;
   return <div className="app-root public-root" data-ready={ready}>
     <header className="journey-header"><div className="brand"><span aria-hidden="true">✧</span>{t("你的 AI 夥伴風格指南")}<span aria-hidden="true">✧</span></div></header>
@@ -30,6 +30,6 @@ export function PublicCardView({id, via, data}: {id: string; via: string; data: 
         <a className="primary" href="/">{t("測測你的 Agent 是哪一型")}<ArrowRight size={20}/></a>
       </section>}
     </main>
-    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t}/></footer>
+    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t} locale={locale}/></footer>
   </div>;
 }

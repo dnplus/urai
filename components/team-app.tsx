@@ -149,6 +149,6 @@ export function TeamApp({turnstileSiteKey}: {turnstileSiteKey: string}) {
       </section>}
       {notice && <p className="inline-notice" role="status">{noticeText(locale, notice)}</p>}
     </main>
-    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t}/></footer>
+    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t} locale={locale}/></footer>
   </div>;
 }
