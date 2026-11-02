@@ -109,7 +109,11 @@ export async function handleSession(db: D1Database, request: Request, id?: strin
       const report = toReport(data), stored = JSON.stringify(report);
       const result = await db.prepare("UPDATE sessions SET report = ?1, payload_hash = ?2, idempotency_key = ?3, submitted_at = ?4 WHERE id = ?5 AND report IS NULL AND expires_at > ?4")
         .bind(stored, payloadHash, key, now, id).run();
-      if (result.meta.changes === 1) { await countStep(db, "result", funnelSource(row.via), now); await countResult(db, report, now); return json({ accepted: true, duplicate: false }, 201); }
+      if (result.meta.changes === 1) {
+        // A homepage demo stores a canned fixture. It is not an observation, so it must not move the result funnel or the type tally.
+        if (report.kind === "observed") { await countStep(db, "result", funnelSource(row.via), now); await countResult(db, report, now); }
+        return json({ accepted: true, duplicate: false }, 201);
+      }
       const current = await db.prepare("SELECT payload_hash, idempotency_key FROM sessions WHERE id = ?1").bind(id).first<Row>();
       if (current?.payload_hash === payloadHash && current.idempotency_key === key) return json({ accepted: true, duplicate: true });
       failure(409, "此會話已收到一份結果；相同內容請使用原重試識別碼。");
