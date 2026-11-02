@@ -16,7 +16,7 @@ export function InfoShell({locale, path, children}: {locale: Locale; path: strin
     <main className="info-page">{children}</main>
     <footer className="info-footer">
       <nav aria-label={t("語言")}>{locales.map((l) => <a key={l} href={localized(path, l)} hrefLang={l} aria-current={l === locale ? "true" : undefined}>{localeNames[l]}</a>)}</nav>
-      <CreatorLinks t={t}/>
+      <CreatorLinks t={t} locale={locale}/>
       <p>{t("並非人格測驗，與任何人格測驗機構無關；四碼只借用常見的 16 型命名，類型、規則與文案皆為本專案自訂。")}</p>
     </footer>
   </div>;

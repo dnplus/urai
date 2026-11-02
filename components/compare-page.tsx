@@ -8,7 +8,7 @@ import type {PublicCard} from "../lib/public-card-service.ts";
 
 // Two public cards side by side. Either one being revoked closes the comparison.
 export function ComparePageView({a, b, bId}: {a: PublicCard | null; b: PublicCard | null; bId: string}) {
-  const {t, ready} = useLocale();
+  const {t, ready, locale} = useLocale();
   const both = a && b && !a.nicknameOnly && !b.nicknameOnly ? {a, b} : null;
   return <div className="app-root public-root" data-ready={ready}>
     <header className="journey-header"><a className="brand" href="/"><span aria-hidden="true">✧</span>{t("你的 AI 夥伴風格指南")}<span aria-hidden="true">✧</span></a></header>
@@ -28,6 +28,6 @@ export function ComparePageView({a, b, bId}: {a: PublicCard | null; b: PublicCar
         <a className="primary" href="/">{t("測測你的 Agent 是哪一型")}<ArrowRight size={20}/></a>
       </section>}
     </main>
-    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t}/></footer>
+    <footer className="journey-footer"><LocaleSwitch/><CreatorLinks t={t} locale={locale}/></footer>
   </div>;
 }

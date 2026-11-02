@@ -375,7 +375,7 @@ export function PersonaApp({turnstileSiteKey}:{turnstileSiteKey:string}) {
       </>}
       {(flow.error || notice) && <p className="inline-notice" role="status">{noticeText(locale,flow.error || notice)}</p>}
     </main>
-    <footer className="journey-footer"><LocaleSwitch /><button onClick={() => about.current?.showModal()}>{t("關於這份觀察")}</button><a className="journey-link" href={localized("/types",locale)}>{t("16 種類型")}</a><CreatorLinks t={t}/></footer>
+    <footer className="journey-footer"><LocaleSwitch /><button onClick={() => about.current?.showModal()}>{t("關於這份觀察")}</button><a className="journey-link" href={localized("/types",locale)}>{t("16 種類型")}</a><CreatorLinks t={t} locale={locale}/></footer>
     <dialog ref={about} className="about-dialog" aria-labelledby="about-title"><button className="icon-button dialog-close" onClick={() => about.current?.close()} aria-label={t("關閉說明")}><X size={22}/></button><h2 id="about-title">{t("你怎麼帶它，")}<br />{t("它就怎麼做事。")}</h2><p>{t("這是一段以授權使用紀錄為依據的合作觀察。借用四組字母，以自訂規則描述合作風格，並非人格測驗。網站只接收你事前明確授權範圍內的最小摘要，授權後自動驗證與傳送。")}</p>
       <details><summary>{t("觀察依據與 16 種風格")}</summary><p>{t("借用 E/I 思考方式、S/N 指令焦點、T/F 驗收依據、J/P 工作框架，只看你帶 Agent 時說了什麼。這不是人格診斷，也不是模型的固定性格。")}</p><p>{t("每個任務每軸選一邊，看不出來就跳過。少於三個任務或打平保留問號，差距不大標成傾向。舊結果需要重新分析。")}<a href="/collector/SKILL.md" target="_blank" rel="noreferrer">{t("完整觀察方式 ↗")}</a></p><div className="about-types">{Object.entries(personas).map(([code, p]) => <div key={code}><b>{code}</b><span>{t(p.name)}</span></div>)}</div></details>
       <details><summary>{t("稀有度怎麼來")}</summary><p>{t(RARITY_LEAD)}</p></details>
