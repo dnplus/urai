@@ -71,6 +71,13 @@
       "when": 1791902446980,
       "tag": "0009_funnel",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1793635241345,
+      "tag": "0010_result_tally",
+      "breakpoints": true
     }
   ]
 }

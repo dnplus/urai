@@ -91,9 +91,14 @@ test('entry points are counted per day without any identifier, and crawlers are 
   assert.equal(card.status, 201);
   assert.deepEqual(await counts(), [
     {source: 'badge', step: 'card_view', count: 2},
+    {source: 'direct', step: 'landing', count: 1},
     {source: 'qr', step: 'result', count: 1},
     {source: 'qr', step: 'session', count: 1},
     {source: 'qr', step: 'share', count: 1},
+  ]);
+  // The finished result is tallied by shape only: lean axes lowercase, plus rarity, model family and client.
+  assert.deepEqual((await db.prepare('SELECT day, pattern, rarity, family, client, count FROM result_tally').all()).results, [
+    {day: '2026-10-10', pattern: 'INTJ', rarity: 'epic', family: 'openai', client: 'codex', count: 1},
   ]);
   const columns = (await db.prepare('PRAGMA table_info(funnel)').all<{name: string}>()).results.map((c) => c.name);
   assert.deepEqual(columns, ['day', 'source', 'step', 'count']);
