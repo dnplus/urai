@@ -79,7 +79,7 @@ npm run preview                  # 已建置的 Worker：http://127.0.0.1:5188
 
 分享視窗的「README 徽章」會複製 `[![AI Partner Style](…/c/<id>/badge.svg)](…/c/<id>?via=badge)`。徽章只用拉丁字母，顏色跟著稀有度；卡片撤回或過期後，徽章會變成「take the test」，不會在別人的 README 裡壞掉。
 
-擴散量測只記每日總數，不記任何識別資料：`funnel` 表的每一列是「日期 × 來源 × 步驟 → 次數」。來源有三種：`link`（貼出去的卡片或比較連結）、`qr`（下載圖片上的 QR，網址帶 `?via=qr`）、`badge`（README 徽章）。步驟依序是 `card_view`（真人打開卡片或比較頁；連結預覽爬蟲不算）、`landing`（帶著來源進首頁）、`session`、`result`、`share`。來源記在這個分頁的 sessionStorage，建立連結時隨請求送出，存在會話上，所以後續的提交與公開卡片都會算回同一個來源。用 `npm run stats` 查正式站的數字。
+擴散量測只記每日總數，不記任何識別資料：`funnel` 表的每一列是「日期 × 來源 × 步驟 → 次數」。來源有三種標記：`link`（貼出去的卡片或比較連結）、`qr`（下載圖片上的 QR，網址帶 `?via=qr`）、`badge`（README 徽章）；沒有標記的訪客記為 `direct`。步驟依序是 `card_view`（真人打開卡片或比較頁；連結預覽爬蟲不算）、`landing`（真人進首頁）、`session`、`result`、`share`。來源記在這個分頁的 sessionStorage，建立連結時隨請求送出，存在會話上，所以後續的提交與公開卡片都會算回同一個來源。另有 `result_tally` 表記每天完成的結果形狀：「日期 × 四碼 × 稀有度 × 模型家族 × 客戶端 → 次數」，四碼中傾向的軸用小寫、未定的軸是 `?`，同樣沒有任何 id。用 `npm run stats` 查正式站的總覽、各來源漏斗、每日數字、16 型與四軸分布、稀有度、模型與客戶端佔比；加 `-- --local` 查本機，加 `-- --days 7` 只看最近 7 天。
 
 預覽圖（`/og`、`/c/<id>/og`、`/vs/<A>/<B>/og`）會先確認卡片還在，再查 Cache API 的快取。快取鍵包含卡片內容的雜湊，所以重建卡面會換一張新圖。正式站實測第二次讀取會回 `cf-cache-status: HIT`。
 

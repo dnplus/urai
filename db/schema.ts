@@ -42,3 +42,9 @@ export const publicCards=sqliteTable('public_cards',{
 export const funnel=sqliteTable('funnel',{
  day:text('day').notNull(),source:text('source').notNull(),step:text('step').notNull(),count:integer('count').notNull().default(0),
 },table=>[primaryKey({columns:[table.day,table.source,table.step]})]);
+
+// One row per day and result shape: how many people finished, as which type and rarity, on which model family and client. No ids.
+// pattern is the four letters with lean axes in lowercase and unsettled ones as '?'.
+export const resultTally=sqliteTable('result_tally',{
+ day:text('day').notNull(),pattern:text('pattern').notNull(),rarity:text('rarity').notNull(),family:text('family').notNull(),client:text('client').notNull(),count:integer('count').notNull().default(0),
+},table=>[primaryKey({columns:[table.day,table.pattern,table.rarity,table.family,table.client]})]);

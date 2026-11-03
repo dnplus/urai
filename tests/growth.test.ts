@@ -89,11 +89,23 @@ test('entry points are counted per day without any identifier, and crawlers are 
   assert.equal(sent.status, 201);
   const card = await createPublicCard(db, request('/api/remembered/card', 'POST', {sessionId: s.id, readToken: s.readToken, family: 'grok', style: 'chibi', nicknameOnly: false, locale: 'zh-TW'}), now);
   assert.equal(card.status, 201);
+  // The homepage demo creates a real session, then submits the canned fixture. That finish is not a completion.
+  const demo = await handleSession(db, request('/api/sessions', 'POST', {nickname: '示範', protocolVersion: '3.0'}), undefined, 'session', now);
+  assert.equal(demo.status, 201);
+  const d = await demo.json() as {id: string; writeToken: string};
+  const demoSent = await handleSession(db, request(`/api/collect/${d.id}`, 'POST', makeLevelFixture('示範'), {authorization: `Bearer ${d.writeToken}`, 'idempotency-key': 'growth-test-key-demo01'}), d.id, 'collect', now);
+  assert.equal(demoSent.status, 201);
   assert.deepEqual(await counts(), [
     {source: 'badge', step: 'card_view', count: 2},
+    {source: 'direct', step: 'landing', count: 1},
+    {source: 'direct', step: 'session', count: 1},
     {source: 'qr', step: 'result', count: 1},
     {source: 'qr', step: 'session', count: 1},
     {source: 'qr', step: 'share', count: 1},
+  ]);
+  // The finished result is tallied by shape only: lean axes lowercase, plus rarity, model family and client.
+  assert.deepEqual((await db.prepare('SELECT day, pattern, rarity, family, client, count FROM result_tally').all()).results, [
+    {day: '2026-10-10', pattern: 'INTJ', rarity: 'epic', family: 'openai', client: 'codex', count: 1},
   ]);
   const columns = (await db.prepare('PRAGMA table_info(funnel)').all<{name: string}>()).results.map((c) => c.name);
   assert.deepEqual(columns, ['day', 'source', 'step', 'count']);

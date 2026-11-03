@@ -15,6 +15,6 @@ export async function generateMetadata():Promise<Metadata>{
 }
 export default async function Home({searchParams}:{searchParams:Promise<{via?:string}>}){
  const base=await requestOrigin(),t=translator('zh-TW'),via=funnelSource((await searchParams).via);
- if(via&&!isCrawler((await headers()).get('user-agent')))await countStep(env.DB,'landing',via);
+ if(!isCrawler((await headers()).get('user-agent')))await countStep(env.DB,'landing',via);
  return <><PersonaApp turnstileSiteKey={env.TURNSTILE_SITE_KEY}/><JsonLd data={{'@context':'https://schema.org','@type':'WebApplication','name':t('你的 AI 夥伴風格指南'),'url':base+'/','author':{'@type':'Person','name':CREATOR.name,'url':CREATOR.site},'description':siteDescription('zh-TW'),'applicationCategory':'LifestyleApplication','operatingSystem':'Any','inLanguage':[...locales],'isAccessibleForFree':true,'offers':{'@type':'Offer','price':0,'priceCurrency':'USD'}}}/></>;
 }
