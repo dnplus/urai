@@ -3940,5 +3940,227 @@
     "ニュースレター（英語）",
     "뉴스레터 구독 (영어)",
     "Newsletter"
+  ],
+  "AI 工作履歷快照": [
+    "AI 工作履历快照",
+    "AI ワーク履歴スナップショット",
+    "AI 작업 이력 스냅샷",
+    "AI work profile snapshot"
+  ],
+  "這個授權連結無效。": [
+    "这个授权链接无效。",
+    "この認可リンクは無効です。",
+    "이 인증 링크는 유효하지 않습니다.",
+    "This authorization link is not valid."
+  ],
+  "應用程式沒有登記，或回傳網址和登記的不一樣。為了安全，不會把你帶回去。": [
+    "应用没有登记，或回调地址和登记的不一样。为了安全，不会把你带回去。",
+    "アプリが登録されていないか、戻り先の URL が登録内容と一致しません。安全のため、元のアプリには戻しません。",
+    "앱이 등록되어 있지 않거나, 돌아갈 주소가 등록된 것과 다릅니다. 안전을 위해 앱으로 돌려보내지 않습니다.",
+    "The app is not registered, or its return address differs from the registered one. For your safety, you will not be sent back."
+  ],
+  "回到首頁": [
+    "回到首页",
+    "ホームへ戻る",
+    "홈으로 돌아가기",
+    "Back to home"
+  ],
+  "授權請求": [
+    "授权请求",
+    "認可リクエスト",
+    "권한 요청",
+    "Authorization request"
+  ],
+  "「{app}」想讀取你的公開 AI 工作履歷": [
+    "“{app}”想读取你的公开 AI 工作履历",
+    "「{app}」があなたの公開 AI ワーク履歴の読み取りを求めています",
+    "‘{app}’이(가) 공개 AI 작업 이력을 읽으려고 합니다",
+    "“{app}” wants to read your public AI work profile"
+  ],
+  "同意後會回到 {host}": [
+    "同意后会回到 {host}",
+    "許可すると {host} に戻ります",
+    "허용하면 {host}(으)로 돌아갑니다",
+    "After you allow, you return to {host}"
+  ],
+  "這個瀏覽器裡沒有最近 7 天的觀察結果。請先完成一次觀察，再回到應用程式重新授權。": [
+    "这个浏览器里没有最近 7 天的观察结果。请先完成一次观察，再回到应用重新授权。",
+    "このブラウザには直近 7 日間の観察結果がありません。先に観察を完了してから、アプリに戻ってもう一度認可してください。",
+    "이 브라우저에는 최근 7일간의 관찰 결과가 없습니다. 먼저 관찰을 마친 뒤 앱으로 돌아가 다시 인증해 주세요.",
+    "This browser holds no result from the last 7 days. Finish an observation first, then return to the app and authorize again."
+  ],
+  "取消並返回": [
+    "取消并返回",
+    "キャンセルして戻る",
+    "취소하고 돌아가기",
+    "Cancel and go back"
+  ],
+  "示範資料或舊版結果不能公開。請重新觀察後再授權。": [
+    "示范数据或旧版结果不能公开。请重新观察后再授权。",
+    "サンプルデータや旧バージョンの結果は公開できません。観察し直してから認可してください。",
+    "예시 데이터나 이전 버전 결과는 공개할 수 없습니다. 다시 관찰한 뒤 인증해 주세요.",
+    "Sample data and results from an older version cannot be published. Run a new observation, then authorize."
+  ],
+  "{nickname} 的履歷快照": [
+    "{nickname} 的履历快照",
+    "{nickname} の履歴スナップショット",
+    "{nickname}의 이력 스냅샷",
+    "{nickname}’s profile snapshot"
+  ],
+  "會讀到：上面這些數字、觀察期間、產生日期，以及公開卡片頁的網址與卡面內容。": [
+    "会读到：上面这些数字、观察期间、生成日期，以及公开卡片页的网址与卡面内容。",
+    "読み取れるもの：上の数字、観察期間、作成日、公開カードページの URL とカードの内容。",
+    "읽을 수 있는 것: 위의 숫자, 관찰 기간, 생성 날짜, 공개 카드 페이지 주소와 카드 내용.",
+    "It can read: the numbers above, the observation period, the date generated, and your public card page’s address and card details."
+  ],
+  "讀不到：私人報告、任務內容、對話、你的 Email 或任何帳號資料。": [
+    "读不到：私人报告、任务内容、对话、你的 Email 或任何账号资料。",
+    "読み取れないもの：非公開レポート、タスクの内容、会話、Email やアカウント情報。",
+    "읽을 수 없는 것: 비공개 리포트, 작업 내용, 대화, Email이나 계정 정보.",
+    "It cannot read: your private report, task details, conversations, your email or any account data."
+  ],
+  "可隨時在「已授權的應用」撤銷；撤回公開卡片也會一併失效。": [
+    "可随时在“已授权的应用”撤销；撤回公开卡片也会一并失效。",
+    "「認可済みのアプリ」でいつでも取り消せます。公開カードを取り下げた場合も無効になります。",
+    "‘허용한 앱’에서 언제든 취소할 수 있으며, 공개 카드를 철회해도 함께 무효가 됩니다.",
+    "You can revoke this any time under “Authorized apps”; withdrawing your public card ends it too."
+  ],
+  "你的履歷快照目前沒有公開。按下同意會把上面的數字加到你的公開卡片頁，任何拿到連結的人都看得到。": [
+    "你的履历快照目前没有公开。按下同意会把上面的数字加到你的公开卡片页，任何拿到链接的人都看得到。",
+    "履歴スナップショットは現在非公開です。許可すると上の数字が公開カードページに追加され、リンクを知っている人は誰でも見られます。",
+    "이력 스냅샷은 현재 비공개입니다. 허용하면 위의 숫자가 공개 카드 페이지에 추가되어, 링크를 가진 누구나 볼 수 있습니다.",
+    "Your profile snapshot is not public yet. Allowing adds the numbers above to your public card page, where anyone with the link can see them."
+  ],
+  "你還沒有公開卡片。按下同意會建立公開卡片頁並附上上面的數字，任何拿到連結的人都看得到。": [
+    "你还没有公开卡片。按下同意会建立公开卡片页并附上上面的数字，任何拿到链接的人都看得到。",
+    "公開カードがまだありません。許可すると公開カードページが作成され、上の数字が掲載されます。リンクを知っている人は誰でも見られます。",
+    "아직 공개 카드가 없습니다. 허용하면 공개 카드 페이지가 만들어지고 위의 숫자가 함께 표시되어, 링크를 가진 누구나 볼 수 있습니다.",
+    "You have no public card yet. Allowing creates a public card page with the numbers above, where anyone with the link can see them."
+  ],
+  "允許": [
+    "允许",
+    "許可する",
+    "허용",
+    "Allow"
+  ],
+  "公開並允許": [
+    "公开并允许",
+    "公開して許可する",
+    "공개하고 허용",
+    "Publish and allow"
+  ],
+  "不允許": [
+    "不允许",
+    "許可しない",
+    "허용 안 함",
+    "Deny"
+  ],
+  "管理已授權的應用": [
+    "管理已授权的应用",
+    "認可済みのアプリを管理",
+    "허용한 앱 관리",
+    "Manage authorized apps"
+  ],
+  "授權已撤銷。": [
+    "授权已撤销。",
+    "認可を取り消しました。",
+    "권한을 취소했습니다.",
+    "Authorization revoked."
+  ],
+  "已授權的應用": [
+    "已授权的应用",
+    "認可済みのアプリ",
+    "허용한 앱",
+    "Authorized apps"
+  ],
+  "這些應用可以讀取你的公開 AI 工作履歷快照。撤銷後，它手上的權杖立刻失效。": [
+    "这些应用可以读取你的公开 AI 工作履历快照。撤销后，它手上的令牌立刻失效。",
+    "これらのアプリは、あなたの公開 AI ワーク履歴スナップショットを読み取れます。取り消すと、アプリが持つトークンはすぐに無効になります。",
+    "이 앱들은 공개 AI 작업 이력 스냅샷을 읽을 수 있습니다. 취소하면 앱이 가진 토큰은 즉시 무효가 됩니다.",
+    "These apps can read your public AI work profile snapshot. Once revoked, the tokens an app holds stop working immediately."
+  ],
+  "這個瀏覽器目前沒有授權任何應用。": [
+    "这个浏览器目前没有授权任何应用。",
+    "このブラウザで認可したアプリはありません。",
+    "이 브라우저에서 허용한 앱이 없습니다.",
+    "This browser has not authorized any app."
+  ],
+  "授權於 {date}": [
+    "授权于 {date}",
+    "{date} に認可",
+    "{date}에 허용",
+    "Authorized on {date}"
+  ],
+  "確定撤銷": [
+    "确定撤销",
+    "取り消しを確定",
+    "취소 확정",
+    "Confirm revoke"
+  ],
+  "撤銷授權": [
+    "撤销授权",
+    "認可を取り消す",
+    "권한 취소",
+    "Revoke"
+  ],
+  "履歷快照目前公開在你的卡片頁。": [
+    "履历快照目前公开在你的卡片页。",
+    "履歴スナップショットは現在カードページで公開されています。",
+    "이력 스냅샷은 현재 카드 페이지에 공개되어 있습니다.",
+    "Your profile snapshot is currently public on your card page."
+  ],
+  "履歷快照目前沒有公開，已授權的應用也讀不到。": [
+    "履历快照目前没有公开，已授权的应用也读不到。",
+    "履歴スナップショットは現在非公開で、認可済みのアプリも読み取れません。",
+    "이력 스냅샷은 현재 비공개이며, 허용한 앱도 읽을 수 없습니다.",
+    "Your profile snapshot is not public right now, so authorized apps cannot read it either."
+  ],
+  "查看公開卡片頁": [
+    "查看公开卡片页",
+    "公開カードページを見る",
+    "공개 카드 페이지 보기",
+    "View the public card page"
+  ],
+  "授權記在這個瀏覽器裡。換了瀏覽器或清除 Cookie 後，可以回到原本的應用解除綁定，或撤回公開卡片讓所有授權失效。": [
+    "授权记在这个浏览器里。换了浏览器或清除 Cookie 后，可以回到原来的应用解除绑定，或撤回公开卡片让所有授权失效。",
+    "認可はこのブラウザに記録されています。ブラウザを替えたり Cookie を消去した場合は、元のアプリで連携を解除するか、公開カードを取り下げてすべての認可を無効にできます。",
+    "권한은 이 브라우저에 기록됩니다. 브라우저를 바꾸거나 Cookie를 지운 뒤에는 원래 앱에서 연결을 해제하거나, 공개 카드를 철회해 모든 권한을 무효로 만들 수 있습니다.",
+    "Authorizations are remembered in this browser. After switching browsers or clearing cookies, disconnect from within the app itself, or withdraw your public card to end every authorization."
+  ],
+  "找不到這筆授權。": [
+    "找不到这笔授权。",
+    "この認可が見つかりません。",
+    "이 권한을 찾을 수 없습니다.",
+    "That authorization was not found."
+  ],
+  "授權請求無效。": [
+    "授权请求无效。",
+    "認可リクエストが無効です。",
+    "권한 요청이 유효하지 않습니다.",
+    "The authorization request is not valid."
+  ],
+  "履歷快照尚未公開。": [
+    "履历快照尚未公开。",
+    "履歴スナップショットはまだ公開されていません。",
+    "이력 스냅샷이 아직 공개되지 않았습니다.",
+    "The profile snapshot is not public yet."
+  ],
+  "一併公開 AI 工作履歷快照": [
+    "一并公开 AI 工作履历快照",
+    "AI ワーク履歴スナップショットも公開する",
+    "AI 작업 이력 스냅샷도 함께 공개",
+    "Also publish my AI work profile snapshot"
+  ],
+  "把報告裡的統計數字（工作階段、tokens、自動化、子代理、寫下與重用的資產）放上公開卡片頁，也讓你授權的應用讀取。不含任務、時間軸與對話。": [
+    "把报告里的统计数字（工作阶段、tokens、自动化、子代理、写下与重用的资产）放上公开卡片页，也让你授权的应用读取。不含任务、时间轴与对话。",
+    "レポートの統計値（セッション、tokens、自動化、サブエージェント、作成・再利用したアセット）を公開カードページに掲載し、あなたが認可したアプリも読み取れるようにします。タスク、タイムライン、会話は含みません。",
+    "리포트의 통계 숫자(세션, tokens, 자동화, 서브에이전트, 작성·재사용한 자산)를 공개 카드 페이지에 올리고, 허용한 앱도 읽을 수 있게 합니다. 작업, 타임라인, 대화는 포함하지 않습니다.",
+    "Puts the report’s counts (sessions, tokens, automation, subagents, assets written and reused) on your public card page and lets apps you authorize read them. No tasks, timelines or conversations."
+  ],
+  "履歷快照的數字由本人選擇公開，同樣來自當次提交的摘要。": [
+    "履历快照的数字由本人选择公开，同样来自当次提交的摘要。",
+    "履歴スナップショットの数字は本人が公開を選んだもので、同じく提出時のサマリーに基づきます。",
+    "이력 스냅샷의 숫자는 본인이 공개를 선택한 것으로, 마찬가지로 제출 당시의 요약에서 나왔습니다.",
+    "The owner chose to publish the profile snapshot numbers; they come from the same submitted summary."
   ]
 }

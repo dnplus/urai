@@ -441,3 +441,35 @@ html[lang="en"] .art-grid .card-copy h2,html[lang="ko"] .art-grid .card-copy h2{
 
 /* Keep the compare block from touching the download button below it. */
 .final-copy .compare-view{margin-bottom:18px}
+
+/* Public work-profile snapshot, the OAuth consent page and the authorized-apps page. */
+.profile-stats{margin-top:22px;padding:14px 18px 4px;border:1px solid #e3daed;border-radius:16px;background:#ffffff8c;text-align:left}
+.profile-stats h2{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;font:600 14px/1.5 var(--body);color:#4e4165}
+.profile-stats h2 small{font-size:11px;font-weight:400;color:#8b809b}
+.profile-stats .metrics-list{margin:8px 0 0}
+.profile-stats .metrics-list>div:last-child{border-bottom:0}
+.verify-link .profile-toggle{margin:0;max-width:none;padding-top:10px;border-top:1px solid #d9e9a4;font-size:12px;color:#5d6446}
+.profile-toggle span{display:grid;gap:2px}
+.profile-toggle a{color:inherit;text-underline-offset:4px}
+.verify-actions .verify-update{font-weight:600;color:#43511d}
+.oauth-page{width:min(1000px,calc(100% - 32px));margin:0 auto;padding-block:10px 40px}
+.oauth-screen{width:min(520px,100%)}
+.oauth-screen h1{font:32px/1.35 var(--display);text-wrap:balance}
+.oauth-screen .lead{margin-bottom:24px}
+.oauth-host{margin-top:10px;font-size:12px;color:#8b809b;overflow-wrap:anywhere}
+.oauth-card{width:100%;margin:22px 0 26px;text-align:left}
+.oauth-who{font-size:13px;color:#674d7b}
+.oauth-card .profile-stats{margin-top:8px}
+.oauth-scope{margin:16px 0 0;padding:0 0 0 18px;font-size:12px;line-height:1.8;color:#6f637f}
+.oauth-publish{margin-top:14px;padding:10px 14px;border-radius:12px;background:#fdf3e2;font-size:12px;line-height:1.75;color:#7a5a1e}
+.oauth-screen .quiet-button{margin-top:16px}
+.oauth-screen a.primary{text-decoration:none}
+.oauth-screen .small-note a{color:inherit;text-underline-offset:4px}
+.oauth-grants{width:100%;margin:6px 0 0;padding:0;list-style:none;text-align:left}
+.oauth-grants li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.oauth-grants li div{display:grid;gap:2px;min-width:0}
+.oauth-grants b{font-size:15px;overflow-wrap:anywhere}
+.oauth-grants small{font-size:11px;color:#8b809b}
+.oauth-grants .quiet-button{margin:0;flex-shrink:0;font-size:12px}
+.oauth-empty{margin-top:8px;font-size:13px;color:#8b809b}
+@media(max-width:640px){.oauth-screen h1{font-size:25px}.profile-stats{padding:12px 14px 2px}}

@@ -26,7 +26,7 @@ export async function handleRemembered(db:D1Database,request:Request,now=Date.no
    return response(request,{found:true,id:previous.id,expiresAt:previous.expires_at,card:toCardObservation(report,storedSelfType(previous.self_type)),report});
   }
   if(request.method==='DELETE'){
-   if(previous)await db.batch([db.prepare('DELETE FROM remembered_results WHERE id=?1').bind(previous.id),db.prepare('DELETE FROM sessions WHERE id=?1').bind(previous.id),db.prepare('DELETE FROM public_cards WHERE session_id=?1').bind(previous.id)]);return response(request,{deleted:true},200,'',0);
+   if(previous)await db.batch([db.prepare('DELETE FROM remembered_results WHERE id=?1').bind(previous.id),db.prepare('DELETE FROM sessions WHERE id=?1').bind(previous.id),db.prepare('DELETE FROM oauth_grants WHERE card_id IN (SELECT id FROM public_cards WHERE session_id=?1)').bind(previous.id),db.prepare('DELETE FROM public_cards WHERE session_id=?1').bind(previous.id)]);return response(request,{deleted:true},200,'',0);
   }
   if(request.method==='POST'){
    if(!request.headers.get('content-type')?.startsWith('application/json')||Number(request.headers.get('content-length'))>512)return response(request,{error:'Invalid request'},400);

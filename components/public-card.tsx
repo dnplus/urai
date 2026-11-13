@@ -2,6 +2,7 @@
 import {ArrowRight} from "lucide-react";
 import {useLocale, LocaleSwitch} from "./locale-provider.tsx";
 import {HoloCard} from "./holo-card.tsx";
+import {ProfileStats} from "./profile-stats.tsx";
 import {CreatorLinks} from "./creator-links.tsx";
 import {personaFor} from "../lib/catalog.ts";
 import {measuredCode} from "../lib/card-composition.ts";
@@ -21,8 +22,9 @@ export function PublicCardView({id, via, data}: {id: string; via: string; data: 
           <h1>{card.nickname}</h1>
           {!data.nicknameOnly && <p className="final-subtitle">{measuredCode(card, t)} · {t(personaFor(card.assessment.type).name)} · {t(rarityLabel(card.usageLevel.value))}</p>}
           {!data.nicknameOnly && <div className="brief-reading">{card.brief.map((line) => <p key={line}>{t(line)}</p>)}</div>}
+          {data.profile && <ProfileStats profile={data.profile}/>}
           <a className="primary public-cta" href={data.nicknameOnly ? `/?via=${via}` : `/?vs=${id}&via=${via}`}>{data.nicknameOnly ? t("測測你的 Agent 是哪一型") : t("測完和 {nickname} 比一比", {nickname: card.nickname})}<ArrowRight size={20}/></a>
-          <p className="small-note">{t("這張卡由網站依當次提交的摘要畫出，和本人下載的圖片內容一致才是真的。摘要由本人的 Agent 在本機計算，網站無法檢視原始紀錄。")}</p>
+          <p className="small-note">{t("這張卡由網站依當次提交的摘要畫出，和本人下載的圖片內容一致才是真的。摘要由本人的 Agent 在本機計算，網站無法檢視原始紀錄。")}{data.profile && " " + t("履歷快照的數字由本人選擇公開，同樣來自當次提交的摘要。")}</p>
         </div>
       </section> : <section className="screen recovery-screen">
         <div className="sealed-card" aria-hidden="true"><span>✧</span></div>
