@@ -73,6 +73,67 @@ npm run preview                  # 已建置的 Worker：http://127.0.0.1:5188
 
 預覽用的插畫 JPEG 在 `npm run build` 時由 `scripts/build-og-assets.mjs` 產生（satori 不支援 WebP），不進版本控制。預覽字型是固定字串的子集，存在 `public/og/fonts/`；改了型名、稀有度名稱或預覽文案後執行 `npm run og:fonts`，`tests/og.test.ts` 會檢查涵蓋範圍。
 
+## 公開 AI 工作履歷快照與 OAuth 授權 API
+
+公開卡片只有卡面。想把盤查數字一起公開的人，在分享視窗勾選「一併公開 AI 工作履歷快照」（預設不勾）：伺服器依存下來的結果，把團隊看板那組數字（期間內工作階段、輸入／輸出 token、自動化、子代理、寫下與重用的資產、最常用模型家族與客戶端、觀察期間）存進同一張公開卡片，並顯示在 `/c/<id>`。不含任務、時間軸或任何對話內容。快照和卡片是同一列資料，所以生命週期相同：撤回連結、清除結果或 365 天到期時一起刪除；取消勾選再按「更新公開卡面」只刪快照、保留卡片。
+
+第三方應用（第一個是 PA Cafe 名片）透過 OAuth 2.1 授權碼流程讀取使用者自己的快照。只支援授權碼＋PKCE（`S256`），scope 只有 `profile.read`，沒有 implicit 或密碼流程。網站沒有帳號，「使用者」就是瀏覽器裡還留著最近 7 天結果的那個人。
+
+| 端點 | 用途 |
+| --- | --- |
+| `GET /.well-known/oauth-authorization-server` | RFC 8414 中繼資料 |
+| `GET /oauth/authorize` | 同意頁。參數：`client_id`、`redirect_uri`、`response_type=code`、`scope=profile.read`、`state`、`code_challenge`、`code_challenge_method=S256` |
+| `POST /oauth/token` | `grant_type=authorization_code`（帶 `code`、`redirect_uri`、`client_id`、`code_verifier`）或 `grant_type=refresh_token`。表單編碼 |
+| `POST /oauth/revoke` | RFC 7009。帶 `token` 與 `client_id`，撤銷整筆授權 |
+| `GET /api/me/profile` | 帶 `Authorization: Bearer <access_token>`，回快照 |
+| `/oauth/grants` | 使用者查看並撤銷已授權的應用 |
+
+流程與期限：
+
+1. 應用把使用者導到 `/oauth/authorize`。同意頁列出會被讀取的數字。快照還沒公開時，按鈕是「公開並允許」，並說明按下後數字會出現在公開卡片頁；沒有公開卡片時會一併建立。瀏覽器裡沒有結果、或結果是示範資料時不能授權。
+2. 同意後帶 `code`、`state`、`iss` 回到 `redirect_uri`。授權碼 5 分鐘內有效，只能換一次。拒絕則帶 `error=access_denied`。`client_id` 未登記或 `redirect_uri` 與登記的不完全相同時，停在錯誤頁，不會導回去。
+3. `POST /oauth/token` 換到 access token（1 小時）與 refresh token。refresh token 每次使用都會換新；用過的那一個再出現，視為外洩，整筆授權作廢。
+4. `GET /api/me/profile` 回應：
+
+```json
+{
+  "id": "UuCmMn5qyvC8lxWjsOAXiQ",
+  "url": "https://urai.dnplus.dev/c/UuCmMn5qyvC8lxWjsOAXiQ",
+  "generatedAt": "2026-11-13T12:00:00.000Z",
+  "expiresAt": "2027-11-13T12:00:00.000Z",
+  "nickname": "小克",
+  "card": {"type": "INTJ", "pattern": "INTJ", "axes": [{"axis": "EI", "value": "I", "strength": "clear"}], "rarity": "epic"},
+  "snapshot": {
+    "observedPeriod": {"from": "2026-10-01", "to": "2026-10-09"},
+    "scope": "partial", "modelFamily": "openai", "client": "codex",
+    "stats": {"sessions": 40, "inputTokens": null, "outputTokens": null, "automation": 2, "subagents": 5, "assetWrites": 1, "assetReuse": 2, "automationDays": 9, "judged": 3, "read": 9, "partial": false}
+  }
+}
+```
+
+`generatedAt` 是公開卡片的建立時間，與 `/c/<id>` 頁上的日期相同；`url` 是任何人都能打開核對的頁面。`card.axes` 有四個元素（範例只列一個）。只顯示暱稱的卡片 `card` 為 `null`。數字為 `null` 表示 collector 沒有取得；`stats.partial` 為 `true` 時，自動化、子代理與資產數字是下限。
+
+| 狀態 | 情況 |
+| --- | --- |
+| 401 | 沒帶權杖、權杖無效、已過期、授權已撤銷，或使用者已撤回卡片／清除結果（授權隨卡片一起刪除）。`WWW-Authenticate` 帶 `error="invalid_token"` |
+| 404 `card_not_found` | 卡片到期。這筆授權同時清除，之後回 401 |
+| 404 `profile_not_public` | 使用者取消公開快照但保留卡片。重新公開後同一筆授權可再讀取 |
+
+撤銷授權有三條路：使用者在 `/oauth/grants` 撤銷單一應用；使用者撤回公開卡片或清除結果，所有授權一起失效；應用自己呼叫 `/oauth/revoke`。`/oauth/grants` 靠同意時寫下的 HttpOnly Cookie `urai_oauth`（限 `/api/remembered/oauth`，365 天，只是一組隨機值）認出這個瀏覽器，所以 7 天的結果 Cookie 過期後仍能撤銷；換了瀏覽器或清掉 Cookie 就只能從應用端解除，或撤回卡片。
+
+API 只回公開頁本來就看得到的內容：不開放私人報告、任務、對話，也沒有新增 Email 等個資欄位。資料庫只存授權碼與權杖的 SHA-256 雜湊。`/oauth/token`、`/oauth/revoke`、`/api/me/profile` 不使用 Cookie，允許任何來源跨網域呼叫；`/oauth/*` 頁面禁止被嵌入框架。
+
+應用要先登記才能使用，沒有公開註冊。登記就是 D1 `oauth_clients` 的一列，用腳本寫入：
+
+```sh
+npm run oauth:client -- add --name "PA Cafe" --redirect https://example.com/oauth/callback   # 正式 D1，印出 client_id 與 client_secret
+npm run oauth:client -- add --name "Local app" --redirect http://127.0.0.1:8787/callback --public --local
+npm run oauth:client -- list
+npm run oauth:client -- remove <client_id>
+```
+
+`--name` 會顯示在同意頁。`--redirect` 必須是 https（本機開發可用 `http://localhost` 或 `http://127.0.0.1`），可給多個，比對時要完全相同。預設產生 `client_secret`（只印一次，資料庫只存雜湊），換權杖時以表單欄位或 HTTP Basic 帶上；`--public` 登記沒有密鑰、只靠 PKCE 的公開用戶端。`remove` 會同時刪掉該應用的所有授權。
+
 ## 和他比一比、README 徽章與擴散量測
 
 公開卡片頁的主按鈕是「測完和 {暱稱} 比一比」，連到 `/?vs=<卡片ID>`。訪客測完後，揭曉頁會多一塊雙人比較：四軸逐一對照，依相同的軸數命名（分身／默契／互補／反差搭檔）。按「分享比較結果」時，網站會替訪客建立（或沿用）自己的公開卡片，再產生比較連結 `/vs/<A>/<B>`。這頁和它的 1200×630 預覽圖（`/vs/<A>/<B>/og`）都由伺服器依兩張卡的紀錄畫出，任一張撤回就失效，也維持 `noindex`。比較時讀取的 `GET /api/cards/<id>` 只回公開頁已顯示的內容；只顯示暱稱的卡片不提供類型，也就不能比較。

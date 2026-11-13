@@ -36,7 +36,21 @@ export const teamEntries=sqliteTable('team_entries',{
 // A public, revocable mirror of one result: the server renders it from the stored record, so a doctored PNG cannot match it.
 export const publicCards=sqliteTable('public_cards',{
  id:text('id').primaryKey(),sessionId:text('session_id').notNull().unique(),card:text('card').notNull(),revokeHash:text('revoke_hash').notNull(),createdAt:integer('created_at').notNull(),expiresAt:integer('expires_at').notNull(),
+ // The collector's own counts, present only when the owner chose to publish them. Same row, so it dies with the card.
+ profile:text('profile'),
 },table=>[index('public_cards_expiry').on(table.expiresAt)]);
+
+// A third-party app allowed to ask visitors for their public profile. A client without a secret is a public client and relies on PKCE alone.
+export const oauthClients=sqliteTable('oauth_clients',{
+ id:text('id').primaryKey(),name:text('name').notNull(),redirectUris:text('redirect_uris').notNull(),secretHash:text('secret_hash'),createdAt:integer('created_at').notNull(),
+});
+
+// One row per app and public card: the pending authorization code, then the current access and refresh tokens. Only hashes are kept.
+export const oauthGrants=sqliteTable('oauth_grants',{
+ id:text('id').primaryKey(),clientId:text('client_id').notNull(),cardId:text('card_id').notNull(),scope:text('scope').notNull(),manageHash:text('manage_hash').notNull(),createdAt:integer('created_at').notNull(),
+ codeHash:text('code_hash'),codeChallenge:text('code_challenge'),codeRedirectUri:text('code_redirect_uri'),codeExpiresAt:integer('code_expires_at'),
+ accessHash:text('access_hash'),accessExpiresAt:integer('access_expires_at'),refreshHash:text('refresh_hash'),previousRefreshHash:text('previous_refresh_hash'),
+},table=>[uniqueIndex('oauth_grants_client_card').on(table.clientId,table.cardId),index('oauth_grants_card').on(table.cardId),index('oauth_grants_code').on(table.codeHash),index('oauth_grants_access').on(table.accessHash),index('oauth_grants_refresh').on(table.refreshHash),index('oauth_grants_manage').on(table.manageHash)]);
 
 // How many people reached each step, per day and per entry point. No ids, so no row can be traced to a visitor.
 export const funnel=sqliteTable('funnel',{

@@ -72,7 +72,7 @@ export async function handleSession(db: D1Database, request: Request, id?: strin
     phase = "session_storage";
     if (mode === "session" && request.method === "DELETE") {
       const statements=[db.prepare("DELETE FROM sessions WHERE id = ?1").bind(id)];
-      if(new URL(request.url).searchParams.get("retainResult")!=="1")statements.push(db.prepare("DELETE FROM remembered_results WHERE id=?1").bind(id),db.prepare("DELETE FROM public_cards WHERE session_id=?1").bind(id));
+      if(new URL(request.url).searchParams.get("retainResult")!=="1")statements.push(db.prepare("DELETE FROM remembered_results WHERE id=?1").bind(id),db.prepare("DELETE FROM oauth_grants WHERE card_id IN (SELECT id FROM public_cards WHERE session_id=?1)").bind(id),db.prepare("DELETE FROM public_cards WHERE session_id=?1").bind(id));
       await db.batch(statements);return json({ deleted: true });
     }
     if (row.protocol_version !== PROTOCOL_VERSION) return json({ error: "觀察規則已更新。舊結果需要重新分析，請建立新連結。", code: "reassessment_required" }, 410);

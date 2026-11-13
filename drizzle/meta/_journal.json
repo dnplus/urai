@@ -78,6 +78,13 @@
       "when": 1793635241345,
       "tag": "0010_result_tally",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1794573612327,
+      "tag": "0011_public_profile_oauth",
+      "breakpoints": true
     }
   ]
 }

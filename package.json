@@ -21,7 +21,8 @@
     "schema": "node scripts/export-schema.mjs",
     "verify:art": "node scripts/verify-art.mjs",
     "og:fonts": "node scripts/build-og-fonts.mjs",
-    "stats": "node scripts/stats.mjs"
+    "stats": "node scripts/stats.mjs",
+    "oauth:client": "node scripts/oauth-client.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",
