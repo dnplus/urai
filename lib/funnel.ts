@@ -1,6 +1,7 @@
 // Where a visitor came in, and how far they got. Only daily totals are kept, never who.
 // link: a shared /c/ link or a compare link. qr: the QR on a downloaded image. badge: a README badge.
-export const funnelSources = ['link', 'qr', 'badge'] as const;
+// direct: everyone else (typed the address, a search result, a bookmark), so the sum over sources is the whole site.
+export const funnelSources = ['link', 'qr', 'badge', 'direct'] as const;
 export type FunnelSource = typeof funnelSources[number];
 export type FunnelStep = 'card_view' | 'landing' | 'session' | 'result' | 'share';
 export const funnelSource = (value: unknown): FunnelSource | null => funnelSources.find((s) => s === value) ?? null;

@@ -69,6 +69,7 @@ test('the badge shows the code and level, and a revoked card becomes an invitati
 
 test('entry points are counted per day without any identifier, and crawlers are not people', async () => {
   assert.equal(funnelSource('badge'), 'badge');
+  assert.equal(funnelSource('direct'), 'direct');
   assert.equal(funnelSource('../etc'), null);
   assert.equal(isCrawler('Twitterbot/1.0'), true);
   assert.equal(isCrawler('facebookexternalhit/1.1'), true);
@@ -85,12 +86,15 @@ test('entry points are counted per day without any identifier, and crawlers are 
   assert.equal(created.status, 201);
   const s = await created.json() as {id: string; readToken: string; writeToken: string};
   assert.equal((await handleSession(db, request('/api/sessions', 'POST', {nickname: '小克', protocolVersion: '3.0', via: 'spam'}), undefined, 'session', now)).status, 400);
+  // Without a source the visit still counts, as direct, so the sources add up to the whole site.
+  assert.equal((await handleSession(db, request('/api/sessions', 'POST', {nickname: '小克', protocolVersion: '3.0'}), undefined, 'session', now)).status, 201);
   const sent = await handleSession(db, request(`/api/collect/${s.id}`, 'POST', {...makeLevelFixture('小克'), kind: 'observed'}, {authorization: `Bearer ${s.writeToken}`, 'idempotency-key': 'growth-test-key-0001'}), s.id, 'collect', now);
   assert.equal(sent.status, 201);
   const card = await createPublicCard(db, request('/api/remembered/card', 'POST', {sessionId: s.id, readToken: s.readToken, family: 'grok', style: 'chibi', nicknameOnly: false, locale: 'zh-TW'}), now);
   assert.equal(card.status, 201);
   assert.deepEqual(await counts(), [
     {source: 'badge', step: 'card_view', count: 2},
+    {source: 'direct', step: 'session', count: 1},
     {source: 'qr', step: 'result', count: 1},
     {source: 'qr', step: 'session', count: 1},
     {source: 'qr', step: 'share', count: 1},

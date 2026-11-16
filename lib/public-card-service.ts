@@ -41,7 +41,8 @@ export async function createPublicCard(db:D1Database,request:Request,now=Date.no
   const revokeToken=hex(32);
   const saved=await db.prepare('INSERT INTO public_cards (id,session_id,card,revoke_hash,created_at,expires_at) VALUES (?1,?2,?3,?4,?5,?6) ON CONFLICT(session_id) DO UPDATE SET card=excluded.card,revoke_hash=excluded.revoke_hash,expires_at=excluded.expires_at RETURNING id')
    .bind(publicId(),source.id,JSON.stringify(card),await hashSecret(revokeToken),now,now+CARD_TTL_MS).first<{id:string}>();
-  await countStep(db,'share',funnelSource(source.via),now);
+  // A saved result keeps no entry point, so its shares count as direct.
+  await countStep(db,'share',funnelSource(source.via)??'direct',now);
   return json({id:saved!.id,url:new URL('/c/'+saved!.id,request.url).href,revokeToken},201);
  }catch(error){
   if(error instanceof HttpError)return json({error:error.message},error.status);

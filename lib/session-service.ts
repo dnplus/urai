@@ -62,7 +62,7 @@ export async function handleSession(db: D1Database, request: Request, id?: strin
       const writeToken = randomToken();
       const newId = crypto.randomUUID();
       const expiresAt = now + TTL_MS;
-      const via = parsed.data.via ?? null;
+      const via = parsed.data.via ?? "direct";
       await db.prepare("INSERT INTO sessions (id, read_hash, write_hash, nickname, created_at, expires_at, protocol_version, via) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)")
         .bind(newId, await digest(readToken), await digest(writeToken), parsed.data.nickname, now, expiresAt, PROTOCOL_VERSION, via).run();
       await countStep(db, "session", via, now);
@@ -109,7 +109,7 @@ export async function handleSession(db: D1Database, request: Request, id?: strin
       const stored = JSON.stringify(toReport(data));
       const result = await db.prepare("UPDATE sessions SET report = ?1, payload_hash = ?2, idempotency_key = ?3, submitted_at = ?4 WHERE id = ?5 AND report IS NULL AND expires_at > ?4")
         .bind(stored, payloadHash, key, now, id).run();
-      if (result.meta.changes === 1) { await countStep(db, "result", funnelSource(row.via), now); return json({ accepted: true, duplicate: false }, 201); }
+      if (result.meta.changes === 1) { await countStep(db, "result", funnelSource(row.via) ?? "direct", now); return json({ accepted: true, duplicate: false }, 201); }
       const current = await db.prepare("SELECT payload_hash, idempotency_key FROM sessions WHERE id = ?1").bind(id).first<Row>();
       if (current?.payload_hash === payloadHash && current.idempotency_key === key) return json({ accepted: true, duplicate: true });
       failure(409, "此會話已收到一份結果；相同內容請使用原重試識別碼。");
