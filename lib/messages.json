@@ -2669,11 +2669,11 @@
     "자주 쓰는 방식을 스킬, 규칙, 스크립트로 만들어 다른 세션에서도 다시 쓰세요.",
     "Turn what you do often into a skill, rule, or script that other sessions can reuse."
   ],
-  "讓自動化靠排程、CI 或 hook 跑上兩週，期間持續維護那些資產。": [
-    "让自动化靠排程、CI 或 hook 跑上两周，期间持续维护那些资产。",
-    "スケジュール・CI・hook で自動化を2週間動かし、その間も資産を手入れし続けましょう。",
-    "예약 실행, CI, hook으로 자동화를 2주 동안 돌리고, 그동안 자산을 계속 관리하세요.",
-    "Let automation run on a schedule, CI, or a hook for two weeks, and keep maintaining those assets meanwhile."
+  "讓自動化靠排程、CI 或 hook 跑上兩週，期間持續維護那些資產。能讓事情來叫它，就別定時空轉。": [
+    "让自动化靠排程、CI 或 hook 跑上两周，期间持续维护那些资产。能让事情来叫它，就别定时空转。",
+    "スケジュール・CI・hook で自動化を2週間動かし、その間も資産を手入れし続けましょう。出来事をきっかけに起動できるなら、定時の空回りは避けましょう。",
+    "예약 실행, CI, hook으로 자동화를 2주 동안 돌리고, 그동안 자산을 계속 관리하세요. 이벤트가 깨워 줄 수 있다면 정해진 시간마다 헛도는 실행은 피하세요.",
+    "Let automation run on a schedule, CI, or a hook for two weeks, and keep maintaining those assets meanwhile. Where an event can wake it, skip the timer that fires with nothing to do."
   ],
   "已是最高等級。定期檢查自動化的產出，別讓它默默走樣。": [
     "已是最高等级。定期检查自动化的产出，别让它默默走样。",
