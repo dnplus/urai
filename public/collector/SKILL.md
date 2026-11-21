@@ -82,6 +82,8 @@ For each task and each axis, pick the letter whose description fits the user's t
 
 `TF` is `unclear` when the user never evaluated, corrected, or chose between options in that task.
 
+Alignment before any work is produced belongs to the opening brief and counts toward `I`: the user asks the agent to restate the goal and process first, answers its clarifying questions, or corrects that restatement. `E` needs the user to react to work the agent has already produced.
+
 These are never evidence on any axis: prompt length, turn count, jargon, approvals, "continue" or "ok", pasted errors without a judgment, and injected system or tool text.
 
 ```json
@@ -107,7 +109,7 @@ The level has two sources. Both stay separate from the letters, the tokens, the 
 - `unchecked_adoption`. A result needed a check, and the user took it without one.
 - `retry_after_error`. Someone noticed an error, and a new attempt followed.
 - `useful_result_verified`. A task's result was confirmed to work.
-- `context_scoped`, `acceptance_defined`, and `targeted_correction_verified`. One task narrowed the context, said what done looks like, and confirmed a specific fix.
+- `context_scoped`, `acceptance_defined`, and `targeted_correction_verified`. One task narrowed the context, said what done looks like, and confirmed a specific fix. `acceptance_defined` needs the outcome the user wants to see, such as "the customer received the confirmation" or a command that has to pass. A step being carried out, such as "send the email" or "fill in the form", is process and does not count.
 
 `systemEvidence` comes from the script, not from you. Copy it as it is. It counts automation sessions, subagent sessions, how many days the automation spans, sessions that wrote or reused an agent asset, asset writes after automation began, and the kinds of scheduling, CI, hook, or heartbeat gear seen. A null count stays null.
 
